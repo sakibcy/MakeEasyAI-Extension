@@ -1,37 +1,38 @@
 {
-  "manifest_version": 3,
-  "name": "Select and Translate",
-  "description": "Select and translate or enter text and translate.",
-  "author": "Md Sakibul Hasan",
-  "version": "1.0.0",
-  "icons": {
-      "16": "assets/icons/icon-256x256.png",
-      "28": "assets/icons/icon-256x256.png",
-      "128": "assets/icons/icon-256x256.png"
-  },
-  "action": {
-      "default_title": "Select and Translate",
-      "default_popup": "popup.html"
-  },
-  "permissions": [
-      "tabs",
-      "bookmarks",
+    "manifest_version": 3,
+    "name": "Select and Translate",
+    "description": "Select and translate or enter text and translate.",
+    "author": "Md Sakibul Hasan",
+    "version": "1.0.0",
+    "icons": {
+        "16": "assets/icons/icon-256x256.png",
+        "28": "assets/icons/icon-256x256.png",
+        "128": "assets/icons/icon-256x256.png"
+    },
+    "action": {
+        "default_title": "Select and Translate",
+        "default_popup": "popup.html"
+    },
+    "permissions": [
       "storage"
-  ],
-  "background": {
-      "service_worker": "background.js"
-  },
-  "content_scripts": [
-      {
-        "run_at": "document_end",
-        "js": [
-          "contentScript.js"
-        ],
-        "matches": [
-          "*://*/*"
-        ],
-        "all_frames": true
-      }
-  ],
-  "options_page": "options.html"
-}
+    ],
+    "host_permissions": [
+      "*://*/"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+          "run_at": "document_end",
+          "js": [
+            "contentScript.js"
+          ],
+          "matches": [
+            "*://*/*"
+          ],
+          "all_frames": true
+        }
+    ],
+    "options_page": "options.html"
+  }

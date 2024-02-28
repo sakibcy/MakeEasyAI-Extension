@@ -14,10 +14,11 @@
         "default_popup": "popup.html"
     },
     "permissions": [
-        "tabs",
-        "bookmarks",
-        "storage"
+      "storage"
     ],
+    "host_permissions": [
+      "*://*/"
+          ],
     "background": {
         "service_worker": "background.js"
     },
