@@ -1,7 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Tamplate",
-  "description": "A template for you",
+  "name": "Select and Translate",
+  "description": "Select and translate or enter text and translate.",
+  "author": "Md Sakibul Hasan",
   "version": "1.0.0",
   "icons": {
       "16": "assets/icons/icon-256x256.png",
@@ -11,9 +12,6 @@
   "action": {
       "default_title": "Select and Translate",
       "default_popup": "popup.html"
-  },
-  "chrome_url_overrides" : {
-    "newtab": "newtab.html"
   },
   "permissions": [
       "tabs",
