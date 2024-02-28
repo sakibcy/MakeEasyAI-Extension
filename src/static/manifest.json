@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "Tamplate",
+  "description": "A template for you",
+  "version": "1.0.0",
+  "icons": {
+      "16": "assets/icons/icon-256x256.png",
+      "28": "assets/icons/icon-256x256.png",
+      "128": "assets/icons/icon-256x256.png"
+  },
+  "action": {
+      "default_title": "Select and Translate",
+      "default_popup": "popup.html"
+  },
+  "chrome_url_overrides" : {
+    "newtab": "newtab.html"
+  },
+  "permissions": [
+      "tabs",
+      "bookmarks",
+      "storage"
+  ],
+  "background": {
+      "service_worker": "background.js"
+  },
+  "content_scripts": [
+      {
+        "run_at": "document_end",
+        "js": [
+          "contentScript.js"
+        ],
+        "matches": [
+          "*://*/*"
+        ],
+        "all_frames": true
+      }
+  ],
+  "options_page": "options.html"
+}
