@@ -4,8 +4,12 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      order: {
+        '13' : '13'
+      }
+    },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 }
 
