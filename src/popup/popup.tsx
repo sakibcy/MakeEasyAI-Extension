@@ -1,5 +1,11 @@
-import React from "react";
+import React, { Fragment, useState } from "react";
 import "../assets/tailwind.css";
+import SelectItem from "./components/SelectItem";
+import LanguageSelector from "./components/LanguageSelector";
+import Navbar from "./components/Navbar";
+import { useDaylightTheme } from "../settings/useDaylightTheme";
+import InputText from "./components/InputText";
+import Translate from "./components/Translate";
 
 const storage = (e: any) => {
   e.preventDefault();
@@ -20,68 +26,18 @@ const EXT_STYLE = {
 };
 
 export default function popup() {
+  const {theme, toggleTheme} = useDaylightTheme();
+
   return (
-    <div style={{ ...EXT_STYLE }} className="bg-base-100">
-      <div className="navbar m-0 bg-neutral-100	">
-        <div className="navbar-start">
-          <img className="size-7" src="assets/icons/icon-256x256.png" />
-        </div>
-        <div className="navbar-center">
-          <p className="text-base font-medium">Select and Translate</p>
-        </div>
-        <div className="navbar-end">
-          <button className="btn btn-ghost btn-circle">
-            <img
-              className="size-9"
-              src="assets/icons/setting-gear-svgrepo-com.svg"
-            />
-          </button>
-        </div>
+    <div className={theme}>
+    <div style={{ ...EXT_STYLE }} className="dark:bg-dark-mode">
+      <div className="">
+        <Navbar theme={theme} themeNav={toggleTheme} />
+        <LanguageSelector theme={theme} />
+        <InputText />
+        <Translate />
       </div>
-
-      <div className="navbar">
-        <div className="navbar-start">
-          <select className="select select-info select-xs w-full max-w-xs">
-            <option disabled selected>
-              Auto detect
-            </option>
-            <option>English</option>
-            <option>Bengali</option>
-            <option>Japanese</option>
-          </select>
-        </div>
-
-        <div className="navbar-center px-2">
-          <button className="btn btn-square btn-xs">
-            <img src="assets/icons/arrow-repeat-242-svgrepo-com.svg" />
-          </button>
-        </div>
-
-        <div className="navbar-end">
-          <select className="select select-info select-xs w-full max-w-xs">
-            <option disabled selected>
-              Auto detect
-            </option>
-            <option>English</option>
-            <option>Bengali</option>
-            <option>Japanese</option>
-          </select>
-        </div>
-      </div>
-
-      {/* <div className="navbar bg-base-100 flex">
-        <div className="flex justify-between">
-		  <img className="size-6" src="assets/icons/icon-256x256.png" />
-        </div>
-		<div className="">
-          <a className="text-base">Select and Translate</a>
-		</div>
-        <div className="">
-          <button className="btn btn-circle btn-sm">
-            <img src="assets/icons/setting-gear-svgrepo-com.svg" />
-          </button>
-        </div>
-      </div> */}
+    </div>
     </div>
   );
 }
