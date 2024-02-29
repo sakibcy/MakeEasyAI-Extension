@@ -7,6 +7,7 @@ import { useDaylightTheme } from "../settings/useDaylightTheme";
 import InputText from "./components/InputText";
 import Translate from "./components/Translate";
 import ShowResult from "./components/ShowResult";
+import Bottom from "./components/Bottom";
 
 const storage = (e: any) => {
   e.preventDefault();
@@ -31,13 +32,14 @@ export default function popup() {
 
   return (
     <div className={theme}>
-    <div style={{ ...EXT_STYLE }} className="dark:bg-dark-mode">
+    <div style={{ ...EXT_STYLE }} className="dark:bg-dark-mode relative">
       <div className="">
         <Navbar theme={theme} themeNav={toggleTheme} />
         <LanguageSelector theme={theme} />
         <InputText />
         <Translate />
         <ShowResult />
+        <Bottom />
       </div>
     </div>
     </div>
