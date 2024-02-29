@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import { useDaylightTheme } from "../settings/useDaylightTheme";
 import InputText from "./components/InputText";
 import Translate from "./components/Translate";
+import ShowResult from "./components/ShowResult";
 
 const storage = (e: any) => {
   e.preventDefault();
@@ -36,6 +37,7 @@ export default function popup() {
         <LanguageSelector theme={theme} />
         <InputText />
         <Translate />
+        <ShowResult />
       </div>
     </div>
     </div>
