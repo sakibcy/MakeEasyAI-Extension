@@ -1,6 +1,5 @@
 import React, { Fragment, useState } from "react";
 import "../assets/tailwind.css";
-import SelectItem from "./components/SelectItem";
 import LanguageSelector from "./components/LanguageSelector";
 import Navbar from "./components/Navbar";
 import { useDaylightTheme } from "../settings/useDaylightTheme";

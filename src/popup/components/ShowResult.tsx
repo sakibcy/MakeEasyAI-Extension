@@ -2,10 +2,15 @@ import React from 'react'
 
 export default function ShowResult() {
     return (
-        <div className="card bg-gray-100 shadow-sm">
-            <div className="card-body">
-                <p>We are using cookies for no reason.</p>
-            </div>
-        </div>
+        <div className="mx-3">
+        <textarea
+          rows={8}
+          name="comment"
+          id="comment"
+          readOnly={true}
+          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-md ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-200"
+          defaultValue={''}
+        />
+      </div>
     )
 }

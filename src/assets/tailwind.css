@@ -5,11 +5,3 @@
 * {
     @apply transition-colors duration-300
 }
-
-.window_resize_btn
-{
-	position: absolute;
-	bottom: 1px;
-	left: 2px;
-	cursor: ne-resize;
-}
