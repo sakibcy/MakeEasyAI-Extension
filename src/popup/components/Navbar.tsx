@@ -78,7 +78,7 @@ function DayLightMode({
           checked={enabled}
           onChange={setEnabled}
           className={classNames(
-            enabled ? 'bg-slate-100' : 'bg-gray-200',
+            enabled ? 'bg-slate-400' : 'bg-gray-200',
             'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2  '
           )}
         >

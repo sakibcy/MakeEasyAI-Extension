@@ -31,7 +31,7 @@ export default function popup() {
 
   return (
     <div className={theme}>
-    <div style={{ ...EXT_STYLE }} className="dark:bg-dark-mode relative">
+    <div style={{ ...EXT_STYLE }} className="dark:bg-dark-mode relative ease-out duration-300">
       <div className="">
         <Navbar theme={theme} themeNav={toggleTheme} />
         <LanguageSelector theme={theme} />
