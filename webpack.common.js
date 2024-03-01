@@ -3,6 +3,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 const tailwindcss = require('tailwindcss');
 const autoprefixer = require('autoprefixer'); 
+const loader = require('ts-loader');
 
 module.exports = {
     mode: 'development',
@@ -17,7 +18,7 @@ module.exports = {
         rules: [
             {
                 use: 'ts-loader',
-                test: /\.tsx$/,
+                test: /\.(js|jsx|tsx|ts)$/,
                 exclude: /node_modules/
             },
             {

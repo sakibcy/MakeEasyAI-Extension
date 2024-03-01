@@ -1,5 +1,5 @@
 import { Switch } from "@headlessui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function ({
   theme,
@@ -8,6 +8,7 @@ export default function ({
   theme: string;
   themeNav: any;
 }) {
+
   return (
     <div className="flex justify-between">
       <div className="order-first">
@@ -66,12 +67,12 @@ function DayLightMode({
   theme: string;
   themeNav: any;
 }) {
-  const [enabled, setEnabled] = useState(false)
+  const [enabled, setEnabled] = useState(false);
 
   return (
     <div className="flex p-3">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle stroke={theme == 'light' ? "#000" : "#fff"} cx="12" cy="12" r="5" /><path
-      stroke={theme == 'light' ? "#000" : "#fff"} d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" /></svg>
+        stroke={theme == 'light' ? "#000" : "#fff"} d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" /></svg>
       <div className="px-2">
         <Switch
           onClick={themeNav}
