@@ -3,16 +3,16 @@ import React, { useEffect, useState } from "react";
 
 export default function ({
   theme,
-  themeNav,
+  toggleTheme,
 }: {
   theme: string;
-  themeNav: any;
+  toggleTheme: any;
 }) {
 
   return (
     <div className="flex justify-between">
       <div className="order-first">
-        <DayLightMode theme={theme} themeNav={themeNav} />
+        <DayLightMode theme={theme} toggleTheme={toggleTheme} />
       </div>
 
       <div className="order-last">
@@ -62,12 +62,18 @@ function classNames(...classes: any) {
 
 function DayLightMode({
   theme,
-  themeNav,
+  toggleTheme,
 }: {
   theme: string;
-  themeNav: any;
+  toggleTheme: any;
 }) {
   const [enabled, setEnabled] = useState(false);
+
+  chrome.storage.sync.get(["enabled"]).then(res => {
+    if (res.enabled) {
+      setEnabled(res.enabled);
+    }
+  })
 
   return (
     <div className="flex p-3">
@@ -75,12 +81,15 @@ function DayLightMode({
         stroke={theme == 'light' ? "#000" : "#fff"} d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" /></svg>
       <div className="px-2">
         <Switch
-          onClick={themeNav}
+          onClick={() => {
+            toggleTheme();
+            setToggleToStorage(enabled ? false : true);
+          }}
           checked={enabled}
-          onChange={setEnabled}
+          onChange={() => setEnabled(enabled ? false : true)}
           className={classNames(
             enabled ? 'bg-slate-400' : 'bg-gray-200',
-            'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2  '
+            `relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2`
           )}
         >
           <span className="sr-only">Use setting</span>
@@ -88,7 +97,7 @@ function DayLightMode({
             aria-hidden="true"
             className={classNames(
               enabled ? 'translate-x-5' : 'translate-x-0',
-              'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out dark:bg-gray-300'
+              'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0  dark:bg-gray-300'
             )}
           />
         </Switch>
@@ -96,4 +105,12 @@ function DayLightMode({
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path stroke={theme == 'light' ? "#000" : "#fff"} d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
     </div>
   )
+}
+
+const setToggleToStorage = async (enabled: boolean) => {
+  try {
+    await chrome.storage.sync.set({ enabled });
+  } catch (error) {
+    console.error("Error saving selection text:", error);
+  }
 }
