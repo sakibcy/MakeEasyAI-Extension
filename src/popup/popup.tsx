@@ -26,7 +26,7 @@ export default function popup() {
           <InputText />
           <Translate />
           <ShowResult />
-          <Bottom />
+          {/* <Bottom /> */}
         </div>
       </div>
     </div>

@@ -17,13 +17,12 @@ chrome.contextMenus.onClicked.addListener(async (clickData: any, tab: any) => {
         await storeSelectionText(clickData.selectionText);
     }
 
-    chrome.tabs.sendMessage(tab.id, { action: "captureText" }, (response) => {
-        // Use the captured text from the content script response (if applicable)
+    chrome.tabs.sendMessage(tab.id, { action: "captureText" }, async (response) => {
         chrome.windows.create({
           url: "popup.html",
           type: "popup",
-          height: 570,
-          width: 450,
+          height: 550,
+          width: 415,
         });
       });
 });

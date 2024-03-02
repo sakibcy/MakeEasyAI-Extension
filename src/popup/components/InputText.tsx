@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 
 export default function InputText() {
@@ -10,7 +10,7 @@ export default function InputText() {
         setUserData(result.userData);
       });
     })();
-  }, [userData]);
+  }, []);
 
   return (
     <div className="mx-3">
