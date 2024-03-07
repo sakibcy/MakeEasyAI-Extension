@@ -12,7 +12,7 @@ export default function LanguageSelector({ theme }: { theme: string }) {
                 <div className="grow-0 h-14 py-2.5 px-2">
                     <button
                         type="button"
-                        className="inline-block rounded border border-current px-2 py-1 text-sm font-medium text-indigo-600 dark:text-indigo-400 transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:text-indigo-500"
+                        className="inline-block rounded border border-current px-2 py-1 text-sm font-medium text-indigo-600  dark:text-indigo-400 transition hover:scale-110 hover:shadow-xl focus:outline-none active:text-indigo-500"
                     >
                         <ArrowSVG theme={theme} />
                     </button>
