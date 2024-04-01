@@ -1,5 +1,5 @@
 import React from "react";
-import SelectItem from "./SelectItem";
+import SelectItem from "./SelectLanguages";
 
 export default function LanguageSelector({ theme }: { theme: string }) {
     return (
