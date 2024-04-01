@@ -2,6 +2,7 @@ import { Fragment, useState } from 'react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Listbox, Transition } from '@headlessui/react'
 import React from 'react'
+import { getLanguages } from '../../apis/getLanguages'
 
 const languages = [
   { id: 1, name: 'Wade Cooper' },
@@ -22,6 +23,7 @@ function classNames(...classes: string[]) {
 
 export default function SelectItem() {
   const [selected, setSelected] = useState(languages[3])
+  getLanguages();
 
   return (
     <Listbox value={selected} onChange={setSelected}>
