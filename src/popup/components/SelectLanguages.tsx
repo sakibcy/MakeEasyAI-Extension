@@ -4,7 +4,7 @@ import { Listbox, Transition } from '@headlessui/react'
 import React from 'react'
 import { getLanguagesV2 } from '../../apis/v2'
 import getDefaultLanguages from '../../apis/getDefaultLanguages'
-import { useChromeStorageLocal } from 'use-chrome-storage'
+import { useChromeStorageSync } from 'use-chrome-storage'
 
 let languages = getDefaultLanguages();
 
@@ -27,9 +27,9 @@ function classNames(...classes: string[]) {
 }
 
 export default function SelectLanguages({ theme }: { theme: string }) {
-  const [selectedLang, setSelectedLang, isPersistentSelected, errorSelected, isInitialStateResolvedSelected] = useChromeStorageLocal('selectedlang', languages[17]);
+  const [selectedLang, setSelectedLang, isPersistentSelected, errorSelected, isInitialStateResolvedSelected] = useChromeStorageSync('selectedlang', languages[17]);
 
-  const [toTranslatedLang, setToTranslatedLang, isPersistent, error, isInitialStateResolved] = useChromeStorageLocal('totranslatedlang', languages[134]);
+  const [toTranslatedLang, setToTranslatedLang, isPersistent, error, isInitialStateResolved] = useChromeStorageSync('totranslatedlang', languages[134]);
 
   return (
 
