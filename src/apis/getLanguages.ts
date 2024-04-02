@@ -1,11 +1,7 @@
 import axios from "axios";
 
-export async function getLanguages() {
-    try {
-        const res = await axios.get('https://translation.googleapis.com/language/translate/v2/languages');
-        console.log(res);
-        
-    } catch (error) {
-        console.log(error);
-    }
+export const getLanguages = async () => {
+    const res = await axios.get(`http://localhost:3001/languages`);
+    
+    return res.data;
 }

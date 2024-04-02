@@ -3,6 +3,7 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Listbox, Transition } from '@headlessui/react'
 import React from 'react'
 import { getLanguages } from '../../apis/getLanguages'
+import axios from 'axios'
 
 const languages = [
   { id: 1, name: 'Wade Cooper' },
@@ -16,6 +17,11 @@ const languages = [
   { id: 9, name: 'Claudie Smitham' },
   { id: 10, name: 'Emil Schaefer' },
 ]
+
+getLanguages().then(res => {
+  console.log(res);
+  
+});
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
