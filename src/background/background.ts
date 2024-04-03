@@ -4,9 +4,9 @@ chrome.contextMenus.create({
     contexts: ["selection"],
 });
 
-async function storeSelectionText(text: any) {
+async function storeSelectionText(text: string) {
     try {
-        await chrome.storage.sync.set({ userData: text });
+        await chrome.storage.sync.set({ sourceText: text });
     } catch (error) {
         console.error("Error saving selection text:", error);
     }
