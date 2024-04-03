@@ -27,16 +27,16 @@ function classNames(...classes: string[]) {
 }
 
 export default function SelectLanguages({ theme }: { theme: string }) {
-  const [selectedLang, setSelectedLang, isPersistentSelected, errorSelected, isInitialStateResolvedSelected] = useChromeStorageSync('selectedlang', languages[17]);
+  const [sourceLanguage, setSourceLanguage, isPersistentSource, errorSource, isInitialStateResolvedSource] = useChromeStorageSync('sourceLanguage', languages[17]);
 
-  const [toTranslatedLang, setToTranslatedLang, isPersistent, error, isInitialStateResolved] = useChromeStorageSync('totranslatedlang', languages[134]);
+  const [targetLanguage, setTargetLanguage, isPersistentTarget, errorTarget, isInitialStateResolvedTarget] = useChromeStorageSync('totranslatedlang', languages[134]);
 
   return (
 
     <div className="">
       <div className="flex pt-1 px-2">
         <div className="grow h-14">
-          <Listbox value={selectedLang} onChange={setSelectedLang}>
+          <Listbox value={sourceLanguage} onChange={setSourceLanguage}>
             {({ open }) => (
               <>
                 <div className="relative mt-2">
@@ -44,7 +44,7 @@ export default function SelectLanguages({ theme }: { theme: string }) {
                     console.log(value);
                     
                   }} className="relative w-full cursor-default rounded-md bg-white dark:bg-slate-200 py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                    <span className="block truncate">{selectedLang.name}</span>
+                    <span className="block truncate">{sourceLanguage.name}</span>
                     <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                       <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
                     </span>
@@ -102,8 +102,8 @@ export default function SelectLanguages({ theme }: { theme: string }) {
             type="button"
             className="inline-block rounded border border-current px-2 py-1 text-sm font-medium text-indigo-600  dark:text-indigo-400 transition hover:scale-110 hover:shadow-xl focus:outline-none active:text-indigo-500"
             onClick={() => {
-              setSelectedLang(toTranslatedLang)
-              setToTranslatedLang(selectedLang)
+              setSourceLanguage(targetLanguage)
+              setTargetLanguage(sourceLanguage)
             }}
           >
             <ArrowSVG theme={theme} />
@@ -111,12 +111,12 @@ export default function SelectLanguages({ theme }: { theme: string }) {
         </div>
 
         <div className="grow h-14">
-          <Listbox value={toTranslatedLang} onChange={setToTranslatedLang}>
+          <Listbox value={targetLanguage} onChange={setTargetLanguage}>
             {({ open }) => (
               <>
                 <div className="relative mt-2">
                   <Listbox.Button className="relative w-full cursor-default rounded-md bg-white dark:bg-slate-200 py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                    <span className="block truncate">{toTranslatedLang.name}</span>
+                    <span className="block truncate">{targetLanguage.name}</span>
                     <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                       <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
                     </span>
