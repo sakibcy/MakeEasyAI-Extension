@@ -1,0 +1,1 @@
+export const urlOfBackEnd = `http://localhost:3001`

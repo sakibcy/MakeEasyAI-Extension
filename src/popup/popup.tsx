@@ -24,7 +24,6 @@ export default function popup() {
           <Navbar theme={theme} toggleTheme={toggleTheme} />
           <SelectLanguages theme={theme} />
           <InputText />
-          <ShowResult />
           {/* <Bottom /> */}
         </div>
       </div>

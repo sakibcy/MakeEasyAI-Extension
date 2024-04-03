@@ -12,10 +12,10 @@ try {
   getLanguagesV2()
     .then(res => {
       languages = res;
+      
     })
     .catch(err => {
       console.log(err);
-
     })
 } catch (error) {
   console.log(error);
