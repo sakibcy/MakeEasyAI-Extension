@@ -19,7 +19,7 @@ export default function InputText() {
         setSourceText(storedText.sourceText || '');
         setIsInitialStateResolvedSourceText(true);
         
-        
+
         const val = await chrome.storage.sync.get('translatedTextStorage');
         const res = val.translatedTextStorage
         setTranslatedText(res)
