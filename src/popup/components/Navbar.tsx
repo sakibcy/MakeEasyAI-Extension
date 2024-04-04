@@ -1,5 +1,6 @@
 import { Switch } from "@headlessui/react";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function ({
   theme,
@@ -16,15 +17,19 @@ export default function ({
       </div>
 
       <div className="order-last">
-        <button className="btn btn-ghost dark:hover:bg-gray-500 btn-circle">
-          <Setting theme={theme} />
-        </button>
+        <Link to={'/settings'}>
+          <button
+            className="btn btn-ghost dark:hover:bg-gray-500 btn-circle">
+            <SettingIcon theme={theme} />
+          </button>
+        
+        </Link>
       </div>
     </div>
   );
 }
 
-const Setting = ({ theme }: { theme: string }) => {
+const SettingIcon = ({ theme }: { theme: string }) => {
   return (
     <svg
       className="w-7 h-7 hover:rotate-45"

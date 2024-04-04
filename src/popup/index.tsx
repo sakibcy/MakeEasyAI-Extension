@@ -2,6 +2,8 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import Popup from "./popup"
 import { Provider } from "react-redux";
+import { HashRouter, Route, Routes } from "react-router-dom";
+import Settings from "./sections/Settings";
 
 function init() {
     const appContainer = document.createElement('div')
@@ -12,7 +14,13 @@ function init() {
     const root = createRoot(appContainer)
     console.log(appContainer)
     root.render(
-        <Popup />
+        <HashRouter>
+            <Routes>
+                <Route path="/" element={<Popup />} />
+                <Route path="/settings" element={<Settings />} />
+            </Routes>
+        </HashRouter>
+        // <Popup />
     )
 }
 
