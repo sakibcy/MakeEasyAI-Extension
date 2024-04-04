@@ -2,35 +2,14 @@ import { Fragment, useEffect, useState } from 'react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Listbox, Transition } from '@headlessui/react'
 import React from 'react'
-import { getLanguagesV2 } from '../../apis/v2'
-import getDefaultLanguages from '../../apis/getDefaultLanguages'
-import { useChromeStorageSync } from 'use-chrome-storage'
-
-let languages = getDefaultLanguages();
-
-try {
-  getLanguagesV2()
-    .then(res => {
-      languages = res;
-      
-    })
-    .catch(err => {
-      console.log(err);
-    })
-} catch (error) {
-  console.log(error);
-
-}
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function SelectLanguages({ theme }: { theme: string }) {
-  const [sourceLanguage, setSourceLanguage, isPersistentSource, errorSource, isInitialStateResolvedSource] = useChromeStorageSync('sourceLanguage', languages[17]);
 
-  const [targetLanguage, setTargetLanguage, isPersistentTarget, errorTarget, isInitialStateResolvedTarget] = useChromeStorageSync('totranslatedlang', languages[134]);
-
+export default function SelectLanguages({ theme, languages, sourceLanguage, setSourceLanguage, targetLanguage, setTargetLanguage, changeSourceTextAndTranslatedTextBasedOnArrowClick }: { theme: string, languages:any, sourceLanguage: any, setSourceLanguage: any, targetLanguage: any, setTargetLanguage: any, changeSourceTextAndTranslatedTextBasedOnArrowClick: any }) {
+  
   return (
 
     <div className="">
@@ -104,6 +83,7 @@ export default function SelectLanguages({ theme }: { theme: string }) {
             onClick={() => {
               setSourceLanguage(targetLanguage)
               setTargetLanguage(sourceLanguage)
+              changeSourceTextAndTranslatedTextBasedOnArrowClick()
             }}
           >
             <ArrowSVG theme={theme} />

@@ -27,31 +27,37 @@ const Card: React.FC<{ text: string }> = ({ text }) => {
   };
 
   return (
-    <div className="bg-slate-100 rounded-lg shadow-md p-4 ">
-      <div className="h-60 overflow-y-auto">
-        <p className="text-gray-600 mb-4 ">{text}</p>
-      </div>
-      <div className="flex items-center justify-between">
-        <button
-          onClick={handleCopyClick}
-          className="text-blue-500 hover:text-blue-700 focus:outline-none"
-        >
-          {isCopied ? 'Copied!' : 'Copy'}
-        </button>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          className="w-6 h-6 text-gray-500"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-          />
-        </svg>
+    <div>
+      <textarea
+          rows={9}
+          name="comment"
+          id="comment"
+          className="block w-full rounded-md border-0 py-1 text-gray-900 shadow-md ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-4 dark:bg-gray-200 text-sm"
+          value={text}
+        />
+      <div className="bg-slate-100 rounded-lg shadow-md p-4 ">
+        <div className="flex items-center justify-between">
+          <button
+            onClick={handleCopyClick}
+            className="text-blue-500 hover:text-blue-700 focus:outline-none"
+          >
+            {isCopied ? 'Copied!' : 'Copy'}
+          </button>
+          {/* <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            className="w-6 h-6 text-gray-500"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+            />
+          </svg> */}
+        </div>
       </div>
     </div>
   );
