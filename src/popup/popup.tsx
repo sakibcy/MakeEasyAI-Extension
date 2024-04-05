@@ -3,6 +3,7 @@ import "../assets/tailwind.css";
 import Navbar from "./components/Navbar";
 import { useDaylightTheme } from "../hooks/useDaylightTheme";
 import Translate from "./components/Translate";
+import Login from "./sections/Login";
 
 const EXT_STYLE = {
   height: "100vh",
@@ -10,34 +11,25 @@ const EXT_STYLE = {
   minWidth: "400px",
 };
 
+function App(props: { theme: string, toggleTheme: () => void }) {
+  return <div className={props.theme == "" ? "light" : props.theme}>
+    <div style={{...EXT_STYLE}} className="dark:bg-dark-mode relative ease-out duration-300">
+      <div className="">
+        <Navbar theme={props.theme} toggleTheme={props.toggleTheme}/>
+        <Translate/>
+        {/* <Bottom /> */}
+      </div>
+    </div>
+  </div>;
+}
+
+const signin = false;
+
 export default function popup() {
   const { theme, toggleTheme } = useDaylightTheme();
 
   return (
-    <div className={theme == '' ? 'light' : theme}>
-      <div style={{ ...EXT_STYLE }} className="dark:bg-dark-mode relative ease-out duration-300">
-        <div className="">
-          <Navbar theme={theme} toggleTheme={toggleTheme} />
-          <Translate />
-          {/* <Bottom /> */}
-        </div>
-      </div>
-    </div>
+    signin ? <App theme={theme} toggleTheme={toggleTheme}/> : <Login />
   );
 }
 
-const setThemeStateToStorage = async (theme: string) => {
-  try {
-    await chrome.storage.sync.set({ theme });
-  } catch (error) {
-    console.error("Error saving selection text:", error);
-  }
-}
-
-const setSelectedLangStorage = async (selectedlanguage: {code: string, name: string}) => {
-  try {
-    await chrome.storage.sync.set({selectedlanguage});
-  } catch (error) {
-    console.error("Error saving selection text:", error);
-  }
-}

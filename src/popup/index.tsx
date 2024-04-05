@@ -4,6 +4,9 @@ import Popup from "./popup"
 import { Provider } from "react-redux";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import Settings from "./sections/Settings";
+import Login from "./sections/Login";
+import SignUp from "./sections/SignUp";
+import Recovery from "./sections/Recovery";
 
 function init() {
     const appContainer = document.createElement('div')
@@ -18,6 +21,9 @@ function init() {
             <Routes>
                 <Route path="/" element={<Popup />} />
                 <Route path="/settings" element={<Settings />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="/recovery" element={<Recovery />} />
             </Routes>
         </HashRouter>
         // <Popup />
