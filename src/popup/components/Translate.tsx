@@ -8,6 +8,7 @@ import { useChromeStorageSync } from 'use-chrome-storage';
 import getDefaultLanguages from '../../apis/getDefaultLanguages';
 import { getLanguagesV2 } from '../../apis/v2';
 import InputTexts from './InputTexts';
+import {Upgrade} from "./Navbar";
 
 export default function Translate() {
   const [sourceText, setSourceText] = useState('');
@@ -132,6 +133,7 @@ export default function Translate() {
       <InputTexts errorSourceText={errorSourceText} handleKeyPress={handleKeyPress} handleTextChange={handleTextChange} handleTranslateClick={handleTranslateClick} sourceText={sourceText}/>
 
       <ShowResult translatedText={translatedText} />
+      <div className="flex justify-center"><Upgrade/></div>
     </div>
   );
 }
