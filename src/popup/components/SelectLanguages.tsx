@@ -15,7 +15,7 @@ export default function SelectLanguages({ theme, languages, sourceLanguage, setS
     <div className="">
       <div className="flex pt-1 px-2">
         <div className="grow h-14">
-          <Listbox value={sourceLanguage} onChange={setSourceLanguage}>
+          <Listbox value={sourceLanguage} onChange={setSourceLanguage} defaultValue={'Default Language'}>
             {({ open }) => (
               <>
                 <div className="relative mt-2">

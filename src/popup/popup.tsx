@@ -1,6 +1,6 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 import "../assets/tailwind.css";
-import Navbar, {Upgrade} from "./components/Navbar";
+import {Upgrade} from "./components/Navbar";
 import { useDaylightTheme } from "../hooks/useDaylightTheme";
 import Translate from "./components/Translate";
 import Login from "./sections/Login";
@@ -19,7 +19,7 @@ function App(props: { theme: string, toggleTheme: () => void }) {
         {/*<Navbar theme={props.theme} toggleTheme={props.toggleTheme}/>*/}
         {/*<Translate/>*/}
         {/* <Bottom /> */}
-        <Example />
+        <FontPage />
       </div>
     </div>
   </div>);
@@ -31,8 +31,11 @@ export default function popup() {
   const { theme, toggleTheme } = useDaylightTheme();
 
   return (
-    signin ? <App theme={theme} toggleTheme={toggleTheme}/> : <Login />
+    // signin ? <App theme={theme} toggleTheme={toggleTheme}/> : <Login />
     //   <SideBarExp theme={theme} toggleTheme={toggleTheme} />
+      <RecoilRoot>
+        <App theme={theme} toggleTheme={toggleTheme} />
+      </RecoilRoot>
   );
 }
 
@@ -134,11 +137,12 @@ import {
   ChartPieIcon,
   DocumentDuplicateIcon,
   FolderIcon,
-  HomeIcon,
   UsersIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 import TranslatorIcon from "./iconsComponents/TranslatorIcon";
+import {RecoilRoot} from "recoil";
+import {Link} from "react-router-dom";
 
 const navigation = [
   { name: 'Translator', href: '#', icon: TranslatorIcon, current: true },
@@ -158,7 +162,7 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
-function Example() {
+function FontPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
@@ -294,13 +298,15 @@ function Example() {
           <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
             {/* Sidebar component, swap this element with another sidebar if you like */}
             <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
-              <div className="flex h-16 shrink-0 items-center">
-                <img
-                    className="h-8 w-auto"
-                    src="./icon-256x256.png"
-                    alt="Your Company"
-                />
-              </div>
+              <Link to='/login'>
+                <div className="flex h-16 shrink-0 items-center">
+                  <img
+                      className="h-8 w-auto"
+                      src="./icon-256x256.png"
+                      alt="Your Company"
+                  />
+                </div>
+              </Link>
               <nav className="flex flex-1 flex-col">
                 <ul role="list" className="flex flex-1 flex-col gap-y-7">
                   <li>
