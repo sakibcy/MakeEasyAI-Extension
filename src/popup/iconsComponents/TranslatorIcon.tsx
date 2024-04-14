@@ -1,8 +1,12 @@
 import React from 'react';
 
-const TranslatorIcon = () => {
+interface TranslatorIconProps {
+    className?: any
+}
+
+const TranslatorIcon = ({className}: TranslatorIconProps) => {
     return (
-        <div>
+        <div className={className}>
             <svg className={'h-5 w-5'} fill="#000000" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>

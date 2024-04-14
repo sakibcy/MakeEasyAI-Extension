@@ -1,15 +1,17 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {useRecoilState, useRecoilValue} from "recoil";
-import {translateLoader} from "../../state/atoms";
+import {summarizerLoader, translateLoader} from "../../state/atoms";
 
-export default function ShowResult({translatedText}: { translatedText: string }) {
+export default function ShowResultSummarizer({summarizedText}: { summarizedText: string }) {
+    const [loading, setLoadingData] = useState(false);
+    const [text, setText] = useState('nothing');
 
-    const loader = useRecoilValue(translateLoader);
+    const loader = useRecoilValue(summarizerLoader);
 
     return (
         <div className="relative items-center p-3">
             {
-                <Card text={translatedText}/>
+                <Card text={summarizedText}/>
             }
 
             {loader && <div role="status" className="absolute -translate-x-1/2 -translate-y-1/2 top-2/4 left-1/2">
@@ -30,7 +32,7 @@ export default function ShowResult({translatedText}: { translatedText: string })
 
 const Card: React.FC<{ text: string }> = ({text}) => {
     const [isCopied, setIsCopied] = useState(false);
-    const loader = useRecoilValue(translateLoader);
+    const loader = useRecoilValue(summarizerLoader);
 
     const handleCopyClick = () => {
         navigator.clipboard.writeText(text);

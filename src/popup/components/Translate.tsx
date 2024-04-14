@@ -129,7 +129,7 @@ export default function Translate() {
     };
 
     return (
-        <div>
+        <div className="sm:mx-auto sm:my-auto sm:w-full sm:max-w-md">
             {/* <SelectLanguages theme={theme} languages={languages} setSourceLanguage={setSourceLanguage} setTargetLanguage={setTargetLanguage} sourceLanguage={sourceLanguage} targetLanguage={targetLanguage}
       setSourceText={setSourceText} setTranslatedText={setTranslatedText} sourceText={sourceText} translatedText={translatedText}
       /> */}
