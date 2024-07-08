@@ -78,10 +78,6 @@ export default function Summarizer() {
             setSummarizedText(res)
             const summarizedTextStorage = res;
             await chrome.storage.sync.set({summarizedTextStorage})
-
-            // console.log(res[0].translations[0].translatedText);
-            // console.log(translatedText);
-            console.log(res);
         }
 
         // Optionally, save the modified text back to storage
@@ -131,11 +127,6 @@ export default function Summarizer() {
 function InputTextsSummarizer (
     { errorSourceText, sourceText, handleTextChange, handleKeyPress, handleTranslateClick }: { errorSourceText: any, sourceText: any, handleTextChange: any, handleKeyPress: any, handleTranslateClick: any }
 ) {
-
-    useEffect(() => {
-        console.log('changed');
-    }, [sourceText])
-
     return (
         <div className="mx-3">
             {errorSourceText && <div className="text-red-500">{errorSourceText}</div>}
