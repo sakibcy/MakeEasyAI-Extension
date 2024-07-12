@@ -1,12 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+import React, { useEffect, useRef, useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 import validator from "validator";
+import apiClient from '../../apis/apiClient';
+import apiClientAuth from '../../apis/apiClientAuth';
+import Notification from '../components/Notification';
+import Cookies from 'js-cookie';
 
 const EXT_STYLE = {
     height: "100vh",
     minHeight: "500px",
     minWidth: "400px",
 };
+
+interface ErrorNotification {
+    message: string;
+    type: string;
+}
 
 const SignUp = () => {
     const [emailErrorMessage, setEmailErrorMessage] = useState('');
@@ -15,6 +24,10 @@ const SignUp = () => {
     const [password, setPassword] = useState('');
     const [passwordLengthError, setPasswordLengthError] = useState('');
     const [passwordValidation, setPasswordValidation] = useState('Password did not match');
+
+    const [errorNotification, setErrorNotification] = useState<ErrorNotification | null>(null);
+
+    const navigate = useNavigate();
 
     const validateEmail = (e: any) => {
         const email = e.target.value;
@@ -44,6 +57,32 @@ const SignUp = () => {
         } else {
             setPasswordValidation('Password did not match');
         }
+    }
+
+    const handleRegister = async (e: any) => {
+        // e.preventDefault();
+
+        try {
+            const res = await apiClientAuth.post('/signup', {
+                email,
+                password,
+            });
+            console.log(res);
+            // if (res) {
+            //     navigate('/');
+            // }
+
+            const token = res.headers['x-auth-token'];
+            Cookies.set('x-auth-token', token, { expires: 15 });
+            
+        } catch (error: any) {
+            console.log(error.response.data.status);
+            setErrorNotification(error.response.data.status);
+        }
+
+        setTimeout(() => {
+            setErrorNotification(null);
+        }, 5000)
     }
 
     return (
@@ -155,8 +194,10 @@ const SignUp = () => {
                                 </div>
                                 <button type="submit"
                                     className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                    onClick={handleRegister}
                                 >Register
                                 </button>
+                                {errorNotification && <Notification message={errorNotification.message} type={errorNotification.type} />}
                             </form>
                         </div>
                     </div>

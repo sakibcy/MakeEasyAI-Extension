@@ -1,13 +1,13 @@
-import axios from "axios";
-import { urlOfBackEnd } from "./config";
+import { apiVerison } from "./config";
+import apiClient from "./apiClient";
 
 export const getLanguages_V3 = async () => {
-    const res = await axios.get(`${urlOfBackEnd}/api/v3/languages`);
+    const res = await apiClient.get(`/${apiVerison}/languages`);
     return res.data;
 }
 
 export const callTranslateText_V3 = async (content: string, targetLanguageCode: string) => {
-    const res = await axios.post(`${urlOfBackEnd}/api/v3/translate_text`, {
+    const res = await apiClient.post(`/${apiVerison}/translate_text`, {
         contents: [content],
         targetLanguageCode
     });

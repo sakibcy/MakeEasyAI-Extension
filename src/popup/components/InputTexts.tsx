@@ -4,10 +4,6 @@ export default function InputTexts (
     { errorSourceText, sourceText, handleTextChange, handleKeyPress, handleTranslateClick }: { errorSourceText: any, sourceText: any, handleTextChange: any, handleKeyPress: any, handleTranslateClick: any }
   ) {
 
-    useEffect(() => {
-        console.log('changed');
-    }, [sourceText])
-
     return (
       <div className="mx-3">
         {errorSourceText && <div className="text-red-500">{errorSourceText}</div>}
