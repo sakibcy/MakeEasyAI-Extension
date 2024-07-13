@@ -1,15 +1,18 @@
-import React, {Fragment, useState} from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import "../assets/tailwind.css";
-import Navbar, {Upgrade} from "./components/Navbar";
-import {useDaylightTheme} from "../hooks/useDaylightTheme";
+import Navbar, { Upgrade } from "./components/Navbar";
+import { useDaylightTheme } from "../hooks/useDaylightTheme";
 import Translate from "./components/Translate";
 import Login from "./sections/Login";
-import {RecoilRoot} from "recoil";
-import {Route, Routes} from "react-router-dom";
+import { RecoilRoot, useRecoilState } from "recoil";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Settings from "./sections/Settings";
 import SignUp from "./sections/SignUp";
 import Recovery from "./sections/Recovery";
 import Summarizer from "./sections/Summarizer";
+import Cookies from "js-cookie";
+import apiClient, { getCookie } from "../apis/apiClient";
+import { authenticatedState } from "../state/atoms";
 
 const EXT_STYLE = {
     height: "100vh",
@@ -19,12 +22,12 @@ const EXT_STYLE = {
 
 function App(props: { theme: string, toggleTheme: () => void }) {
     return (
-        <div style={{...EXT_STYLE}} className={`${props.theme == "" ? "light" : props.theme} w-full`}>
+        <div style={{ ...EXT_STYLE }} className={`${props.theme == "" ? "light" : props.theme} w-full`}>
             <div className="dark:bg-dark-mode relative ease-out duration-300">
                 <div className="">
                     {/*<Navbar theme={props.theme} toggleTheme={props.toggleTheme}/>*/}
-                    <Navbar/>
-                    <Translate/>
+                    <Navbar />
+                    <Translate />
                     {/* <Bottom /> */}
                     {/*<FontPage />*/}
                 </div>
@@ -32,28 +35,66 @@ function App(props: { theme: string, toggleTheme: () => void }) {
         </div>);
 }
 
-const signin = true;
-
 export default function popup() {
-    const {theme, toggleTheme} = useDaylightTheme();
+    const { theme, toggleTheme } = useDaylightTheme();
+    const [authenticated, setAuthenticated] = useRecoilState(authenticatedState);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        (async () => {
+            const cookie = await chrome.cookies.get(
+                {
+                    url: 'http://localhost:3001',
+                    name: 'x-auth-token'
+                }
+            );
+
+            try {
+                const res = await apiClient.get(
+                    '/authenticated',
+                    { headers: { 'Authorization': `Bearer ${await getCookie()}` } }
+                );
+
+                if (res) {
+                    setAuthenticated(res.data.status.type);
+                    navigate("/translate");
+
+                }
+
+            } catch (error) {
+                console.log(error);
+                // navigate("/")
+            }
+        })()
+    });
 
     return (
-        // signin ? <App theme={theme} toggleTheme={toggleTheme}/> : <Login />
-        //   <SideBarExp theme={theme} toggleTheme={toggleTheme} />
-        //   <RecoilRoot>
-        <div style={{...EXT_STYLE}}>
-            <Navbar />
-            {/*<App theme={theme} toggleTheme={toggleTheme}/>*/}
+        authenticated === 'Success' ? <RecoilRoot>
+            <div style={{ ...EXT_STYLE }}>
+                <Navbar />
+                {/*<App theme={theme} toggleTheme={toggleTheme}/>*/}
+                <Routes>
+                    <Route path={"/"} element={<Login />} />
+                    <Route path="/translate" element={<Translate />} />
+                    <Route path="/settings" element={<Settings />} />
+                    <Route path="/summarizer" element={<Summarizer />} />
+                    <Route path="/signup" element={<SignUp />} />
+                    <Route path="/recovery" element={<Recovery />} />
+                </Routes>
+            </div>
+        </RecoilRoot> : <div style={{ ...EXT_STYLE }}>
+            {authenticated === 'Success' ? <Navbar /> : <></>}
             <Routes>
-                <Route path="/" element={<Translate />} />
+                <Route path={"/"} element={<Login />} />
+                <Route path="/translate" element={<Translate />} />
                 <Route path="/settings" element={<Settings />} />
-                <Route path="/login" element={<Login />} />
+                <Route path="/summarizer" element={<Summarizer />} />
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/recovery" element={<Recovery />} />
-                <Route path="/summarizer" element={<Summarizer />} />
             </Routes>
         </div>
-        //</RecoilRoot>
+        //   <SideBarExp theme={theme} toggleTheme={toggleTheme} />
+        //   
     );
 }
 
@@ -71,21 +112,21 @@ export default function popup() {
   }
   ```
 */
-function SideBarExp({theme, toggleTheme}: { theme: string, toggleTheme: any }) {
+function SideBarExp({ theme, toggleTheme }: { theme: string, toggleTheme: any }) {
 
 
     return (
         <>
-            <div style={{...EXT_STYLE}} className="h-screen bg-white">
+            <div style={{ ...EXT_STYLE }} className="h-screen bg-white">
 
                 <div className=" float-left min-h-screen select-none border bg-gray-200 shadow">
                     <div className="[&>.tooltip]:hover:opacity-100 h-14 w-12 cursor-pointer p-3">
                         <div
                             className="border-gray pointer-events-auto absolute flex h-10 w-8 items-center justify-center rounded-full text-gray-200 shadow duration-100 hover:bg-gray-700">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                 stroke="currentColor" stroke-width="2">
+                                stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round"
-                                      d="M10 21h7a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v11m0 5l4.879-4.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242z"/>
+                                    d="M10 21h7a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v11m0 5l4.879-4.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242z" />
                             </svg>
                         </div>
                         <div
@@ -98,9 +139,9 @@ function SideBarExp({theme, toggleTheme}: { theme: string, toggleTheme: any }) {
                         <div
                             className="border-gray pointer-events-auto absolute flex h-10 w-8 items-center justify-center rounded-full bg-gray-700 text-gray-200 shadow duration-100 hover:bg-gray-700">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                 stroke="currentColor" stroke-width="2">
+                                stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round"
-                                      d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+                                    d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
                             </svg>
                         </div>
                         <div
@@ -112,9 +153,9 @@ function SideBarExp({theme, toggleTheme}: { theme: string, toggleTheme: any }) {
                         <div
                             className="border-gray pointer-events-auto absolute flex h-10 w-8 items-center justify-center rounded-full text-gray-200 shadow duration-100 hover:bg-gray-700">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                 stroke="currentColor" stroke-width="2">
+                                stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round"
-                                      d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                             </svg>
                         </div>
                         <div
@@ -126,9 +167,9 @@ function SideBarExp({theme, toggleTheme}: { theme: string, toggleTheme: any }) {
                         <div
                             className="border-gray pointer-events-auto absolute flex h-10 w-8 items-center justify-center rounded-full text-gray-200 shadow duration-100 hover:bg-gray-700">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                 stroke="currentColor" stroke-width="2">
+                                stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round"
-                                      d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </div>
                         <div
@@ -139,7 +180,7 @@ function SideBarExp({theme, toggleTheme}: { theme: string, toggleTheme: any }) {
                 </div>
                 <div className={'float-right'}>
                     <div className={''}>
-                        <App theme={theme} toggleTheme={toggleTheme}/>
+                        <App theme={theme} toggleTheme={toggleTheme} />
                     </div>
                 </div>
             </div>

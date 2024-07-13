@@ -1,54 +1,5 @@
 import {Switch} from "@headlessui/react";
 import React, {Fragment, useEffect, useState} from "react";
-// import { Link } from "react-router-dom";
-import {CheckCircleIcon} from "@heroicons/react/20/solid";
-
-// export default function Navbar ({
-//   theme,
-//   toggleTheme,
-// }: {
-//   theme: string;
-//   toggleTheme: any;
-// }) {
-//
-//   let login: boolean;
-//   login = false;
-//
-//   return (
-//     <div className="navbar">
-//         <div className="navbar-start">
-//             {/*<DayLightMode theme={theme} toggleTheme={toggleTheme} />*/}
-//             <button
-//                 type="button"
-//                 className="inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-//             >
-//                 Open Sidebar
-//                 <svg className={'h-5 w-5'} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#ffffff" transform="rotate(180)">
-//                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-//                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-//                     <g id="SVGRepo_iconCarrier">
-//                         <g>
-//                             <path fill="none" d="M0 0h24v24H0z"></path>
-//                             <path
-//                                 d="M3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm6 2v14h11V5H9z"></path>
-//                         </g>
-//                     </g>
-//                 </svg>
-//             </button>
-//         </div>
-//
-//         <div className="navbar-end">
-//             {login ? <Link to={'/settings'}>
-//                 <button
-//                     className="btn btn-ghost dark:hover:bg-gray-500 btn-circle">
-//                     <SettingIcon theme={theme}/>
-//                 </button>
-//
-//             </Link> : <Upgrade/>}
-//         </div>
-//     </div>
-//   );
-// }
 
 import {Dialog, Transition} from '@headlessui/react'
 import {
@@ -63,7 +14,7 @@ import {
 // @ts-ignore
 import TranslatorIcon from "../iconsComponents/TranslatorIcon";
 import {RecoilRoot} from "recoil";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {current} from "@reduxjs/toolkit";
 import {signal} from "@preact/signals-react";
 
@@ -368,10 +319,18 @@ const NavigationItems = ({currentSummary, setCurrentSummary, currentTranslate, s
     )
 }
 
+const deleteCookie = async () => {
+    await chrome.cookies.remove({
+        url: "http://localhost:3001",
+        name: "x-auth-token"
+    });
+}
+
 export const Upgrade = () => {
+    const navigate = useNavigate();
     return (
         <div>
-            <Link target={'_blank'} to={'/login'}>
+            <Link target={'_blank'} to={'/'}>
                 <button
                     type="button"
                     className="inline-flex items-center gap-x-1.5 rounded-md bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -379,6 +338,12 @@ export const Upgrade = () => {
                     Upgrade to Premium
                     {/*<CheckCircleIcon className="-mr-0.5 h-5 w-5" aria-hidden="true"/>*/}
                     <UpgradeSVG/>
+                </button>
+                <button onClick={() => {
+                    deleteCookie();
+                    navigate('/');
+                    }}>
+                    Log Out
                 </button>
             </Link>
         </div>

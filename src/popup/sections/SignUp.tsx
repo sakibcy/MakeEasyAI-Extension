@@ -60,23 +60,26 @@ const SignUp = () => {
     }
 
     const handleRegister = async (e: any) => {
-        // e.preventDefault();
+        e.preventDefault();
 
         try {
             const res = await apiClientAuth.post('/signup', {
                 email,
                 password,
             });
-            console.log(res);
-            // if (res) {
-            //     navigate('/');
-            // }
+            if (res) {
+                const token = res.headers['x-auth-token'];
+                chrome.cookies.set({
+                    url: 'http://localhost:3001',
+                    name: 'x-auth-token',
+                    value: token,
+                    httpOnly: true
+                });
+                navigate('/translate');
+            }
 
-            const token = res.headers['x-auth-token'];
-            Cookies.set('x-auth-token', token, { expires: 15 });
             
         } catch (error: any) {
-            console.log(error.response.data.status);
             setErrorNotification(error.response.data.status);
         }
 
@@ -92,7 +95,7 @@ const SignUp = () => {
 
                     <div className="navbar bg-base-100">
                         <div className="navbar-start">
-                            <Link to={'/login'}>
+                            <Link to={'/'}>
                                 <div className="btn btn-ghost btn-circle">
                                     <svg className='h-5 w-5' viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"
                                         fill="#000000" transform="rotate(90)" stroke="#000000" stroke-width="33.792">
