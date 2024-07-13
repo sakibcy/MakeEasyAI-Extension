@@ -8,7 +8,6 @@ import {useChromeStorageSync} from 'use-chrome-storage';
 import getDefaultLanguages from '../../apis/getDefaultLanguages';
 import {getLanguagesV2} from '../../apis/v2';
 import InputTexts from './InputTexts';
-import {Upgrade} from "./Navbar";
 import {useRecoilState} from "recoil";
 import {translateLoader} from "../../state/atoms";
 
