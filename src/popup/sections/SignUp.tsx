@@ -1,10 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import validator from "validator";
-import apiClient from '../../apis/apiClient';
+import apiClient, { getCookie } from '../../apis/apiClient';
 import apiClientAuth from '../../apis/apiClientAuth';
 import Notification from '../components/Notification';
 import Cookies from 'js-cookie';
+import { useRecoilState } from 'recoil';
+import { authenticatedState } from '../../state/atoms';
+import { isAuthenticated } from '../../apis/isAuthenticated';
 
 const EXT_STYLE = {
     height: "100vh",
@@ -26,6 +29,8 @@ const SignUp = () => {
     const [passwordValidation, setPasswordValidation] = useState('Password did not match');
 
     const [errorNotification, setErrorNotification] = useState<ErrorNotification | null>(null);
+
+    const [authenticated, setAuthenticated] = useRecoilState(authenticatedState);
 
     const navigate = useNavigate();
 
@@ -75,10 +80,14 @@ const SignUp = () => {
                     value: token,
                     httpOnly: true
                 });
-                navigate('/translate');
+                
+                const resAuth = await isAuthenticated();
+
+                setAuthenticated(resAuth.data.status.type);
+                navigate('/translate')
             }
 
-            
+
         } catch (error: any) {
             setErrorNotification(error.response.data.status);
         }

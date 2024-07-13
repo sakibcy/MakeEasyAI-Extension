@@ -66,7 +66,7 @@ export default function popup() {
                 // navigate("/")
             }
         })()
-    });
+    }, [authenticated]);
 
     return (
         authenticated === 'Success' ? <RecoilRoot>
