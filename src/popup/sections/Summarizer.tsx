@@ -115,9 +115,6 @@ export default function Summarizer() {
                                         sourceText={sourceTextForSummarize}/>
 
                 <ShowResultSummarizer summarizedText={summarizedText}/>
-                <div className="flex justify-center">
-                    <Upgrade/>
-                </div>
             </div>
         </div>
     );

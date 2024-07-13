@@ -112,11 +112,9 @@ export default function Translate() {
         let temp = translatedText;
 
         setTranslatedText(sourceText)
-        // const translatedTextStorage = sourceText;
+        
         await chrome.storage.sync.set({translatedTextStorage: sourceText})
 
-        // const val = await chrome.storage.sync.get('translatedTextStorage');
-        // const res = val.translatedTextStorage
         setSourceText(temp)
         await chrome.storage.sync.set({sourceText: translatedText});
     }
@@ -144,7 +142,6 @@ export default function Translate() {
                         sourceText={sourceText}/>
 
             <ShowResult translatedText={translatedText}/>
-            <div className="flex justify-center"><Upgrade/></div>
         </div>
     );
 }
