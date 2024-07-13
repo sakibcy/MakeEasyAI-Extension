@@ -49,7 +49,7 @@ const Login = () => {
                 const resAuth = await isAuthenticated();
 
                 setAuthenticated(resAuth.data.status.type);
-                navigate('/translate')
+                
             }
 
         } catch (error: any) {
@@ -61,6 +61,15 @@ const Login = () => {
         setTimeout(() => {
             setErrorNotification(null);
         }, 5000)
+    }
+
+    const handleFeatureCommingSoon = (e: any) => {
+        e.preventDefault();
+        setErrorNotification({message: 'Feature will coming soon...', type: 'info'});
+
+        setTimeout(() => {
+            setErrorNotification(null);
+        }, 5000);
     }
 
     return (
@@ -154,7 +163,10 @@ const Login = () => {
                                     <button
                                         type="submit"
                                         className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                        onClick={handleLogin}
+                                        onClick={(e) => {
+                                            handleLogin(e);
+                                            navigate('/translate')
+                                        }}
                                     >
                                         Sign in
                                     </button>
@@ -187,6 +199,7 @@ const Login = () => {
                                                     flex w-full items-center justify-center gap-3 rounded-md
                                                     transition duration-300 ease-out hover:ease-in-out
                                                     bg-white dark:bg-gray-900 border border-gray-300 shadow-md px-3 py-1.5 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#24292F]"
+                                                    onClick={(e) => handleFeatureCommingSoon(e)}
                                 >
                                     <svg className="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg"
                                         width="800px"
@@ -220,6 +233,7 @@ const Login = () => {
                                 <a
                                     href="#"
                                     className="flex w-full items-center justify-center gap-3 rounded-md bg-[#1D9BF0] px-3 py-1.5 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D9BF0]"
+                                    onClick={(e) => handleFeatureCommingSoon(e)}
                                 >
                                     <svg className="h-5 w-5" aria-hidden="true" fill="currentColor"
                                         viewBox="0 0 20 20">

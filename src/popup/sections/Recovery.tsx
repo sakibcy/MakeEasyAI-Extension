@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Link} from "react-router-dom";
+import Notification from '../components/Notification';
 
 const EXT_STYLE = {
     height: "100vh",
@@ -7,7 +8,23 @@ const EXT_STYLE = {
     minWidth: "400px",
 };
 
+interface ErrorNotification {
+    message: string;
+    type: string;
+}
+
 const Recovery = () => {
+    const [errorNotification, setErrorNotification] = useState<ErrorNotification | null>(null);
+
+    const handleRecovery = (e: any) => {
+        e.preventDefault();
+        setErrorNotification({message: 'Forget Password Feature will coming soon', type: 'info'});
+
+        setTimeout(() => {
+            setErrorNotification(null);
+        }, 5000);
+    }
+
     return (
         <div style={{...EXT_STYLE}} className="bg-white dark:bg-dark-mode relative ease-out duration-300">
             <div className="mx-auto max-w-md">
@@ -15,7 +32,7 @@ const Recovery = () => {
 
                     <div className="navbar bg-base-100">
                         <div className="navbar-start">
-                            <Link to={'/login'}>
+                            <Link to={'/'}>
                                 <div className="btn btn-ghost btn-circle">
                                     <svg className='h-5 w-5' viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"
                                          fill="#000000" transform="rotate(90)" stroke="#000000" stroke-width="33.792">
@@ -53,7 +70,7 @@ const Recovery = () => {
                                         <label htmlFor="email" className="mb-2 block text-sm text-gray-600">Email
                                             address</label>
                                         <div className="relative">
-                                            <input value="" type="email" id="email" name="email"
+                                            <input type="email" id="email" name="email"
                                                    className="peer block w-full rounded-md border border-gray-200 bg-gray-50 py-3 px-4 text-sm outline-none ring-offset-1 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
                                                    required aria-describedby="email-error"/>
                                             <div
@@ -71,9 +88,13 @@ const Recovery = () => {
                                     </div>
 
                                     <button type="submit"
-                                            className="inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-blue-500 py-3 px-4 text-sm font-semibold text-white transition-all hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Reset
+                                            className="inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-blue-500 py-3 px-4 text-sm font-semibold text-white transition-all hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                                            onClick={(e) => handleRecovery(e)}
+                                            >Reset
                                         password
                                     </button>
+
+                                    {errorNotification && <Notification message={errorNotification.message} type={errorNotification.type} />}
                                 </div>
                             </form>
                         </div>
@@ -82,7 +103,7 @@ const Recovery = () => {
                     {/*<a className="pl-3 text-sm text-gray-600 decoration-2 hover:text-blue-600 hover:underline" href="#"> FAQs </a>*/}
                     <span className="inline pr-3 text-sm text-gray-600">
       Remember your password?
-      <Link to={'/login'}><a className="font-medium text-blue-600 decoration-2 hover:underline" href="#"> Sign in here </a></Link>
+      <Link to={'/'}><a className="font-medium text-blue-600 decoration-2 hover:underline"> Sign in here </a></Link>
     </span>
                     <a className="pl-3 text-sm text-gray-600 decoration-2 hover:text-blue-600 hover:underline" href="#"
                        target="_blank"> Contact Support </a>
