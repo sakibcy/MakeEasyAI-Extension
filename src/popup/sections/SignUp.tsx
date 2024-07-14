@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import validator from "validator";
-import apiClient, { getCookie } from '../../apis/apiClient';
+import apiClient from '../../apis/apiClient';
 import apiClientAuth from '../../apis/apiClientAuth';
 import Notification from '../components/Notification';
 import Cookies from 'js-cookie';

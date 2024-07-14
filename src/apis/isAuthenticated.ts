@@ -1,4 +1,5 @@
-import apiClient, { getCookie } from "./apiClient";
+import getCookie from "../utils/getCookie";
+import apiClient from "./apiClient";
 
 export const isAuthenticated = async () => { 
     return await apiClient.get(

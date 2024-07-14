@@ -5,7 +5,7 @@ import {useDaylightTheme} from '../../hooks/useDaylightTheme';
 import {useChromeStorageSync} from 'use-chrome-storage';
 import getDefaultLanguages from '../../apis/getDefaultLanguages';
 import {getLanguagesV2} from '../../apis/v2';
-import Navbar, {Upgrade} from "../components/Navbar";
+import Navbar from "../components/Navbar";
 import {useRecoilState} from "recoil";
 import {summarizerLoader, translateLoader} from "../../state/atoms";
 import ShowResultSummarizer from "../components/ShowResultSummarizer";

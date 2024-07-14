@@ -1,15 +1,6 @@
 import axios from "axios";
 import { urlOfBackEnd } from "./config";
-
-export const getCookie = async () => {
-    const cookie = await chrome.cookies.get(
-        {
-            url: 'http://localhost:3001',
-            name: 'x-auth-token'
-        })
-    
-    return cookie?.value;
-}
+import getCookie from "../utils/getCookie";
 
 export default axios.create({
     baseURL: `${urlOfBackEnd}`,

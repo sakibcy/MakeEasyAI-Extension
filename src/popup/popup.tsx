@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import "../assets/tailwind.css";
-import Navbar, { Upgrade } from "./components/Navbar";
+import Navbar from "./components/Navbar";
 import { useDaylightTheme } from "../hooks/useDaylightTheme";
 import Translate from "./components/Translate";
 import Login from "./sections/Login";
@@ -11,7 +11,7 @@ import SignUp from "./sections/SignUp";
 import Recovery from "./sections/Recovery";
 import Summarizer from "./sections/Summarizer";
 import Cookies from "js-cookie";
-import apiClient, { getCookie } from "../apis/apiClient";
+import apiClient from "../apis/apiClient";
 import { authenticatedState } from "../state/atoms";
 
 const EXT_STYLE = {
@@ -48,23 +48,30 @@ export default function popup() {
                     name: 'x-auth-token'
                 }
             );
-
-            try {
-                const res = await apiClient.get(
-                    '/authenticated',
-                    { headers: { 'Authorization': `Bearer ${await getCookie()}` } }
-                );
-
-                if (res) {
-                    setAuthenticated(res.data.status.type);
-                    navigate("/translate");
-
-                }
-
-            } catch (error) {
-                console.log(error);
-                // navigate("/")
+            
+            if (cookie) {
+                console.log(cookie.expirationDate);
+                
+                setAuthenticated('Success');
+                navigate("/translate")
             }
+
+            // try {
+            //     const res = await apiClient.get(
+            //         '/authenticated',
+            //         { headers: { 'Authorization': `Bearer ${await getCookie()}` } }
+            //     );
+
+            //     if (res) {
+            //         setAuthenticated(res.data.status.type);
+            //         navigate("/translate");
+
+            //     }
+
+            // } catch (error) {
+            //     console.log(error);
+            //     // navigate("/")
+            // }
         })()
     }, [authenticated]);
 
@@ -92,26 +99,12 @@ export default function popup() {
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/recovery" element={<Recovery />} />
             </Routes>
+            {/* <SideBarExp theme={theme} toggleTheme={toggleTheme} /> */}
         </div>
-        //   <SideBarExp theme={theme} toggleTheme={toggleTheme} />
-        //   
+          
     );
 }
 
-/*
-  This example requires some changes to your config:
-
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
 function SideBarExp({ theme, toggleTheme }: { theme: string, toggleTheme: any }) {
 
 
