@@ -13,6 +13,12 @@
 
 #### Build Technology: Webpack, React, TypeScript, Tailwind CSS, React Router Dom, Recoil, Axios
 
+<div align='center'>
+
+![Technology](https://skillicons.dev/icons?i=webpack,react,typescript,tailwind)
+
+</div>
+
 <br /><div align='center'>
 
 ## [See The Back End of this Extension](https://github.com/sakibcy/MakeEasyAI-BackEnd)
